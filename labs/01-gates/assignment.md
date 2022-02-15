@@ -1,4 +1,4 @@
-     # Lab 1: MICHAL ČESKÝ
+# Lab 1: MICHAL ČESKÝ
 
 ### De Morgan's laws
 
@@ -34,7 +34,7 @@ end architecture dataflow;
 
 1. Screenshot with simulated time waveforms. Always display all inputs and outputs (display the inputs at the top of the image, the outputs below them) at the appropriate time scale!
 
-   ![your figure]()
+    ![git](images/laws.jpg)
 
 2. Link to your public EDA Playground example:
 
