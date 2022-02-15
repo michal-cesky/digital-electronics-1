@@ -1,4 +1,4 @@
-# Lab 1: MICHAL ČESKÝ
+     # Lab 1: MICHAL ČESKÝ
 
 ### De Morgan's laws
 
