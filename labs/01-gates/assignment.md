@@ -35,6 +35,14 @@ end architecture dataflow;
 1. Screenshot with simulated time waveforms. Always display all inputs and outputs (display the inputs at the top of the image, the outputs below them) at the appropriate time scale!
 
     ![git](images/laws.png)
+    
+```vhdl
+architecture dataflow of demorgan is
+begin
+    f_left_o <= (a_i and b_i) or (a_i and c_i);
+    f_right_o <= (a_i or (b_i and c_i));
+end architecture dataflow;
+```
 
 2. Link to your public EDA Playground example:
 
