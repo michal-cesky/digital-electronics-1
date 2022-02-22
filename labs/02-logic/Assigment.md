@@ -25,6 +25,7 @@ Greater than:
    | 11 | 1 | 1 | 0 | 1 | 
    | 10 | 1 | 1 | 0 | 0 |
    
+   f = B1*negA0 + B1*B0*negA0 + B0*negA1*negA2 
    
 Less than:
 |**A1 A0/B1 B0** | **00** | **01** | **11** | **10** |
@@ -33,3 +34,5 @@ Less than:
    | 01 | 0 | 0 | 1 | 1 |
    | 11 | 0 | 0 | 0 | 0 | 
    | 10 | 0 | 0 | 1 | 0 |
+   
+   f = A1*negB1 + negB0*A1*A0 + A0*negB1*negB0
