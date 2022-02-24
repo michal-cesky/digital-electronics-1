@@ -48,7 +48,7 @@ Less than:
 
    Greater than:
 
-   ![git](images/Greater.png)
+   ![git](images/greater.png)
 
    Less than:
 
