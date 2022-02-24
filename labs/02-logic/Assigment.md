@@ -48,7 +48,7 @@ Less than:
 
    Greater than:
 
-   ![K-maps](images/kmap_empty.png)
+   ![git](images/Greater.png)
 
    Less than:
 
