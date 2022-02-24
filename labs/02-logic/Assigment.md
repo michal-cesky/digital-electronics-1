@@ -1,21 +1,3 @@
-  | **Dec. equivalent** | **B[1:0]** | **A[1:0]** | **B is greater than A** | **B equals A** | **B is less than A** |
-   | :-: | :-: | :-: | :-: | :-: | :-: |
-   |  0 | 0 0 | 0 0 | 0 | 1 | 0 |
-   |  1 | 0 0 | 0 1 | 0 | 0 | 1 |
-   |  2 | 0 0 | 1 0 | 0 | 0 | 1 |
-   |  3 | 0 0 | 1 1 | 0 | 0 | 1 |
-   |  4 | 0 1 | 0 0 | 1 | 0 | 0 |
-   |  5 | 0 1 | 0 1 | 0 | 1 | 0 |
-   |  6 | 0 1 | 1 0 | 0 | 0 | 1 |
-   |  7 | 0 1 | 1 1 | 0 | 0 | 1 |
-   |  8 | 1 0 | 0 0 | 1 | 0 | 0 |
-   |  9 | 1 0 | 0 1 | 1 | 0 | 0 |
-   | 10 | 1 0 | 1 0 | 0 | 1 | 0 |
-   | 11 | 1 0 | 1 1 | 0 | 0 | 1 |
-   | 12 | 1 1 | 0 0 | 1 | 0 | 0 |
-   | 13 | 1 1 | 0 1 | 1 | 0 | 0 |
-   | 14 | 1 1 | 1 0 | 1 | 0 | 0 |
-   | 15 | 1 1 | 1 1 | 0 | 1 | 0 |
 
 Greater than:
    |**A1 A0/B1 B0** | **00** | **01** | **11** | **10** |
@@ -41,7 +23,28 @@ Less than:
 
 ### 2-bit comparator
 
-1. Karnaugh maps for other two functions:
+1. Truth table
+
+  | **Dec. equivalent** | **B[1:0]** | **A[1:0]** | **B is greater than A** | **B equals A** | **B is less than A** |
+   | :-: | :-: | :-: | :-: | :-: | :-: |
+   |  0 | 0 0 | 0 0 | 0 | 1 | 0 |
+   |  1 | 0 0 | 0 1 | 0 | 0 | 1 |
+   |  2 | 0 0 | 1 0 | 0 | 0 | 1 |
+   |  3 | 0 0 | 1 1 | 0 | 0 | 1 |
+   |  4 | 0 1 | 0 0 | 1 | 0 | 0 |
+   |  5 | 0 1 | 0 1 | 0 | 1 | 0 |
+   |  6 | 0 1 | 1 0 | 0 | 0 | 1 |
+   |  7 | 0 1 | 1 1 | 0 | 0 | 1 |
+   |  8 | 1 0 | 0 0 | 1 | 0 | 0 |
+   |  9 | 1 0 | 0 1 | 1 | 0 | 0 |
+   | 10 | 1 0 | 1 0 | 0 | 1 | 0 |
+   | 11 | 1 0 | 1 1 | 0 | 0 | 1 |
+   | 12 | 1 1 | 0 0 | 1 | 0 | 0 |
+   | 13 | 1 1 | 0 1 | 1 | 0 | 0 |
+   | 14 | 1 1 | 1 0 | 1 | 0 | 0 |
+   | 15 | 1 1 | 1 1 | 0 | 1 | 0 |
+
+2. Karnaugh maps for other two functions:
 
    Greater than:
 
@@ -51,7 +54,7 @@ Less than:
 
    ![K-maps](images/kmap_empty.png)
 
-2. Equations of simplified SoP (Sum of the Products) form of the "greater than" function and simplified PoS (Product of the Sums) form of the "less than" function.
+3. Equations of simplified SoP (Sum of the Products) form of the "greater than" function and simplified PoS (Product of the Sums) form of the "less than" function.
 
    ![Logic functions](images/comparator_min.png)
 
