@@ -8,7 +8,7 @@
 architecture Behavioral of mux_3bit_4to1 is
 begin
 
-    f_o <= a_i when "00",  
+        f_o <= a_i when "00",  
                b_i when "01",
                c_i when "10",
                d_i when others; 
