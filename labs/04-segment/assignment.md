@@ -14,9 +14,95 @@
         assert (s_seg = "0000001")
         report "Input combination 0000 FAILED" severity error;
 
-
-        -- WRITE OTHER TEST CASES HERE
-
+        report "Testing 1 ..." severity note;		 -- TEST 1
+        s_hex_i <= "0001";
+        wait for 10 ns;
+        assert (s_seg_o = "1001111")
+        report "Test failed for input combination: 1" severity error; 
+                
+        report "Testing 2 ..." severity note;		 -- TEST 2
+        s_hex_i <= "0010";
+        wait for 10 ns;
+        assert (s_seg_o = "0010010")
+        report "Test failed for input combination: 2" severity error; 
+        
+        report "Testing 3 ..." severity note;		 -- TEST 3
+        s_hex_i <= "0011";
+        wait for 10 ns;
+        assert (s_seg_o = "0000110")
+        report "Test failed for input combination: 3" severity error; 
+        
+        report "Testing 4 ..." severity note;		 -- TEST 4
+        s_hex_i <= "0100";
+        wait for 10 ns;
+        assert (s_seg_o = "1001100")
+        report "Test failed for input combination: 4" severity error; 
+        
+        report "Testing 5 ..." severity note;        -- TEST 5
+        s_hex_i <= "0101";
+        wait for 10 ns;
+        assert (s_seg_o = "0100100")
+        report "Test failed for input combination: 5" severity error; 
+        
+        report "Testing 6 ..." severity note;        -- TEST 6
+        s_hex_i <= "0110";
+        wait for 10 ns;
+        assert (s_seg_o = "0100000")
+        report "Test failed for input combination: 6" severity error; 
+        
+        report "Testing 7 ..." severity note;        -- TEST 7
+        s_hex_i <= "0111";
+        wait for 10 ns;
+        assert (s_seg_o = "0001111")
+        report "Test failed for input combination: 7" severity error; 
+        
+        report "Testing 8 ..." severity note;        -- TEST 8
+        s_hex_i <= "1000";
+        wait for 10 ns;
+        assert (s_seg_o = "0000000")
+        report "Test failed for input combination: 8" severity error; 
+        
+        report "Testing 9 ..." severity note;        -- TEST 9
+        s_hex_i <= "1001";
+        wait for 10 ns;
+        assert (s_seg_o = "0000100")
+        report "Test failed for input combination: 9" severity error; 
+        
+        report "Testing 10 ..." severity note;      -- TEST 10(A)
+        s_hex_i <= "1010";
+        wait for 10 ns;
+        assert (s_seg_o = "0001000")
+        report "Test failed for input combination: 10" severity error; 
+        
+        report "Testing 11 ..." severity note;        -- TEST 11 (B)
+        s_hex_i <= "1011";
+        wait for 10 ns;
+        assert (s_seg_o = "1100000")
+        report "Test failed for input combination: 11" severity error; 
+        
+        report "Testing 12 ..." severity note;        -- TEST 12 (C)
+        s_hex_i <= "1100";
+        wait for 10 ns;
+        assert (s_seg_o = "0110001")
+        report "Test failed for input combination: 12" severity error; 
+        
+        report "Testing 13 ..." severity note;        -- TEST 13 (D)
+        s_hex_i <= "1101";
+        wait for 10 ns;
+        assert (s_seg_o = "1000010")
+        report "Test failed for input combination: 13" severity error; 
+        
+        report "Testing 14 ..." severity note;        -- TEST 14 (E)
+        s_hex_i <= "1110";
+        wait for 10 ns;
+        assert (s_seg_o = "0110000")
+        report "Test failed for input combination: 14" severity error;
+        
+        report "Testing 15 ..." severity note;        -- TEST 15 (F)
+        s_hex_i <= "1111";
+        wait for 10 ns;
+        assert (s_seg_o = "0111000")
+        report "Test failed for input combination: 15" severity error; 
 
         report "Stimulus process finished" severity note;
         wait;
