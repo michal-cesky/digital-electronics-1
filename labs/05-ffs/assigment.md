@@ -22,11 +22,13 @@ begin
     begin
         if rising_edge(clk) then
             if (rst='1') then
-                q     <='0';
+                s_q    <='0';
+                q      <='0';
                 q_bar  <='1'; 
             else
-                q     <= d;
-                q_bar <= not d;
+                s_q   <= (not(t) and s_q) or (t and not(s_q));
+                q     <= s_q;
+                q_bar <= not s_q;
             end if;
 
         end if;
