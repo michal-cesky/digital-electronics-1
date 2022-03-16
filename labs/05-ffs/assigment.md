@@ -33,10 +33,6 @@ begin
 
         end if;
     end process p_t_ff_rst;
-
-    -- Output ports are permanently connected to local signal
-    q     <= s_q;
-    q_bar <= not s_q;
 end architecture Behavioral;
 ```
 
