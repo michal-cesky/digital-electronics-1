@@ -35,7 +35,7 @@
 
    ![git](images/graf.png)
    
-   ![git](images/graf2.png)
+   ![git](images/graf3.png)
 
 ### Two counters
 
