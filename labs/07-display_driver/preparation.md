@@ -26,3 +26,6 @@
     text: '                    4ms   4ms   4ms   4ms   4ms   4ms   4ms   4ms   4ms   4ms',
   },
 }
+
+
+![git](images/prep.png)
