@@ -86,7 +86,7 @@ p_7seg_decoder : process(hex_i)
                 seg_o <= "0000100"; -- 9
 
             when "1010" =>
-                seg_o <= "0001000"; -- A
+                seg_o <= "0000000"; -- A
 
             when "1011" =>
                 seg_o <= "1100000"; -- B
