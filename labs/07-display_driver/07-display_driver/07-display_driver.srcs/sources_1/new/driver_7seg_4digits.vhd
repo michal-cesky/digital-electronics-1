@@ -25,6 +25,11 @@ entity driver_7seg_4digits is
         data1_i : in  std_logic_vector(4 - 1 downto 0);
         data2_i : in  std_logic_vector(4 - 1 downto 0);
         data3_i : in  std_logic_vector(4 - 1 downto 0);
+        -- outputs of counter
+        cnt_o  <= std_logic_vector(s_cnt_local);
+        cnt_o1 <= std_logic_vector(s_cnt_local1);
+        cnt_o2 <= std_logic_vector(s_cnt_local2);
+        cnt_o3 <= std_logic_vector(s_cnt_local3);
         -- 4-bit input value for decimal points
         dp_i    : in  std_logic_vector(4 - 1 downto 0);
         -- Decimal point for specific digit
@@ -103,7 +108,7 @@ begin
             else
                 case s_cnt is
                     when "11" =>
-                        s_hex <= data3_i;
+                        s_hex <= data0_i;
                         dp_o  <= dp_i(3);
                         dig_o <= "0111";
 

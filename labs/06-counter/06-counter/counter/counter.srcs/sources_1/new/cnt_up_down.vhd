@@ -25,12 +25,12 @@ entity cnt_up_down is
         reset    : in  std_logic;  -- Synchronous reset
         en_i     : in  std_logic;  -- Enable input
         cnt_up_i : in  std_logic;  -- Direction of the counter
-        cnt_o    : inout std_logic_vector(g_CNT_WIDTH - 1 downto 0);
-        cnt_o1   : inout std_logic_vector(g_CNT_WIDTH - 1 downto 0);
-        cnt_o2   : inout std_logic_vector(g_CNT_WIDTH - 1 downto 0);
-        cnt_o3   : inout std_logic_vector(g_CNT_WIDTH - 1 downto 0);
-        cnt_o4   : inout std_logic_vector(g_CNT_WIDTH - 1 downto 0);
-        cnt_o5   : inout std_logic_vector(g_CNT_WIDTH - 1 downto 0)
+        cnt_o    : out std_logic_vector(g_CNT_WIDTH - 1 downto 0);
+        cnt_o1   : out std_logic_vector(g_CNT_WIDTH - 1 downto 0);
+        cnt_o2   : out std_logic_vector(g_CNT_WIDTH - 1 downto 0);
+        cnt_o3   : out std_logic_vector(g_CNT_WIDTH - 1 downto 0);
+        cnt_o4   : out std_logic_vector(g_CNT_WIDTH - 1 downto 0);
+        cnt_o5   : out std_logic_vector(g_CNT_WIDTH - 1 downto 0)
     );
 end entity cnt_up_down;
 
@@ -43,6 +43,8 @@ architecture behavioral of cnt_up_down is
     signal s_cnt_local : unsigned(g_CNT_WIDTH - 1 downto 0);
     signal s_cnt_local1 : unsigned(g_CNT_WIDTH - 1 downto 0);
     signal s_cnt_local2 : unsigned(g_CNT_WIDTH - 1 downto 0);
+    signal s_cnt_local3 : unsigned(g_CNT_WIDTH - 1 downto 0);
+    
 begin
     --------------------------------------------------------
     -- p_cnt_up_down:
@@ -61,12 +63,21 @@ begin
                 
                 if (cnt_up_i = '1') then
                 s_cnt_local <= s_cnt_local + 1;
-                    if (cnt_o(0) = '1') and (cnt_o(1) = '0' ) and (cnt_o(2) = '0' ) and (cnt_o(3) = '1' ) then
+                    if (s_cnt_local(0) = '1') and (s_cnt_local(1) = '0' ) and (s_cnt_local(2) = '0' ) and (s_cnt_local(3) = '1' ) then
                         s_cnt_local <= (others => '0'); -- Clear all bits
+                        s_cnt_o = '1';
+                        
+                        
                         s_cnt_local1 <= s_cnt_local1 + 1; 
-                            if (cnt_o1(0) = '0') and (cnt_o1(1) = '0') and (cnt_o1(2) = '1') and (cnt_o1(3) = '0') then 
+                            if (s_cnt_local1(0) = '0') and (s_cnt_local1(1) = '1') and (s_cnt_local1(2) = '1') and (s_cnt_local1(3) = '0') then 
                                 s_cnt_local1 <= (others => '0');
                                 s_cnt_local2 <= s_cnt_local2 + 1;
+                                    if (s_cnt_local2(0) = '1') and (s_cnt_local2(1) = '0') and (s_cnt_local2(2) = '0') and (s_cnt_local2(3) = '1') then
+                                         s_cnt_local2 <= (others => '0');
+                                         s_cnt_local3 <= s_cnt_local3 + 1;
+                                   end if;
+                            end if;
+                
                     else
                         s_cnt_local <= s_cnt_local + 1;  
                     end if;   
@@ -85,5 +96,6 @@ begin
     -- Output must be retyped from "unsigned" to "std_logic_vector"
     cnt_o <= std_logic_vector(s_cnt_local);
     cnt_o1 <= std_logic_vector(s_cnt_local1);
-
+    cnt_o2 <= std_logic_vector(s_cnt_local2);
+    cnt_o3 <= std_logic_vector(s_cnt_local3);
 end architecture behavioral;

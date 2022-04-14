@@ -48,6 +48,7 @@ begin
             en_i     => s_en,
             cnt_up_i => s_cnt_up,
             cnt_o    => s_cnt
+            
         );
 
     --------------------------------------------------------
@@ -69,7 +70,7 @@ begin
     --------------------------------------------------------
     p_reset_gen : process
     begin
-        s_reset <= '0'; wait for 12 ns;
+        
         -- Reset activated
         s_reset <= '1'; wait for 73 ns;
         -- Reset deactivated

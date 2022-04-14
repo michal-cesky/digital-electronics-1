@@ -52,7 +52,15 @@ architecture Behavioral of top is
   signal s_en  : std_logic;
   -- Internal counter
   signal s_cnt : std_logic_vector(4 - 1 downto 0);
-
+signal s_reset      : std_logic;
+    signal s_data0      : std_logic_vector(3 downto 0);
+    signal s_data1      : std_logic_vector(3 downto 0);
+    signal s_data2      : std_logic_vector(3 downto 0);
+    signal s_data3      : std_logic_vector(3 downto 0);
+    signal s_dpin       : std_logic_vector(3 downto 0);
+    signal s_dpout      : std_logic;
+    signal s_seg_o      : std_logic_vector(6 downto 0);
+    signal s_dig_o      : std_logic_vector(3 downto 0);
 begin
 
   --------------------------------------------------------------------
@@ -80,13 +88,15 @@ begin
           en_i      => s_en,
           cnt_up_i  => SW,
           cnt_o     => s_cnt
+          
+          
       );
 
   --------------------------------------------------------------------
   -- Instance (copy) of hex_7seg entity
   hex2seg : entity work.hex_7seg
       port map(
-          hex_i    => s_cnt,
+          hex_i => s_cnt,
           seg_o(6) => CA,
           seg_o(5) => CB,
           seg_o(4) => CC,
@@ -95,7 +105,23 @@ begin
           seg_o(1) => CF,
           seg_o(0) => CG
       );
-
+ -- driver_7seg_4digits
+ 
+ driver : entity work.driver_7seg_4digits
+      port map(
+        clk     => CLK100MHZ,
+           reset   => s_reset,
+           data0_i => s_data0, 
+           data1_i => s_data1,
+           data2_i => s_data2,
+           data3_i => s_data3,
+           dp_i    => s_dpin,
+           dp_o    => s_dpout,
+           seg_o   => s_seg_o,
+           dig_o   => s_dig_o
+        
+      );
+ 
   -- Connect one common anode to 3.3V
   AN <= b"1111_1110";
 
