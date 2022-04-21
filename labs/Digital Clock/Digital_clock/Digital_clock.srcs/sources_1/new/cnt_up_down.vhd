@@ -37,7 +37,7 @@ architecture behavioral of cnt_up_down is
 
     -- Local counter
     signal s_cnt_local : unsigned(g_CNT_WIDTH - 1 downto 0);
-    
+
 begin
     --------------------------------------------------------
     -- p_cnt_up_down:
@@ -56,17 +56,18 @@ begin
                 
                 if (cnt_up_i = '1') then
                 s_cnt_local <= s_cnt_local + 1;
-                    if (s_cnt_local(0) = '1') and (s_cnt_local(1) = '0' ) and (s_cnt_local(2) = '0' ) and (s_cnt_local(3) = '1' ) then
+                    if (cnt_o(0) = '1') and (cnt_o(1) = '0' ) and (cnt_o(2) = '0' ) and (cnt_o(3) = '1' ) then
                         s_cnt_local <= (others => '0'); -- Clear all bits
                         cnt1_o <= '1';
-                   end if;
- 
+                    else
+                        s_cnt_local <= s_cnt_local + 1;  
+                    end if;   
                 
-                else             
+             else             
                     s_cnt_local <= s_cnt_local ;
                 
                 
-                end if;
+                 end if;
             end if;
             
             
@@ -75,4 +76,5 @@ begin
 
     -- Output must be retyped from "unsigned" to "std_logic_vector"
     cnt_o <= std_logic_vector(s_cnt_local);
+
 end architecture behavioral;

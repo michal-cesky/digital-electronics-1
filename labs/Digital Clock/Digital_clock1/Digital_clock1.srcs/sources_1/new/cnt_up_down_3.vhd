@@ -16,7 +16,7 @@ use ieee.numeric_std.all;
 ------------------------------------------------------------
 -- Entity declaration for n-bit counter
 ------------------------------------------------------------
-entity cnt_up_down is
+entity cnt_up_down_3 is
     generic(
         g_CNT_WIDTH : natural := 4 -- Number of bits for counter
     );
@@ -24,27 +24,29 @@ entity cnt_up_down is
         clk      : in  std_logic;  -- Main clock
         reset    : in  std_logic;  -- Synchronous reset
         en_i     : in  std_logic;  -- Enable input
-        cnt_up_i : in  std_logic;  -- Direction of the counter
-        cnt_o    : out std_logic_vector(g_CNT_WIDTH - 1 downto 0);
-        cnt1_o   : out std_logic
+        cnt_i    : in  std_logic;  -- Direction of the counter
+        cnt_i2   : in  std_logic;
+        cnt_i3   : in  std_logic;
+        cnt_om   : out std_logic_vector(g_CNT_WIDTH - 1 downto 0);
+        cnt_o    : out std_logic
     );
-end entity cnt_up_down;
+end entity cnt_up_down_3;
 
 ------------------------------------------------------------
 -- Architecture body for n-bit counter
 ------------------------------------------------------------
-architecture behavioral of cnt_up_down is
+architecture behavioral of cnt_up_down_3 is
 
     -- Local counter
     signal s_cnt_local : unsigned(g_CNT_WIDTH - 1 downto 0);
-    
+
 begin
     --------------------------------------------------------
     -- p_cnt_up_down:
     -- Clocked process with synchronous reset which implements
     -- n-bit up/down counter.
     --------------------------------------------------------
-    p_cnt_up_down : process(clk)
+   p_cnt_up_down : process(clk)
     begin
         if rising_edge(clk) then
         
@@ -54,19 +56,24 @@ begin
             elsif (en_i = '1') then -- Test if counter is enabled
                   s_cnt_local <= (others => '0');
                 
-                if (cnt_up_i = '1') then
-                s_cnt_local <= s_cnt_local + 1;
-                    if (s_cnt_local(0) = '1') and (s_cnt_local(1) = '0' ) and (s_cnt_local(2) = '0' ) and (s_cnt_local(3) = '1' ) then
-                        s_cnt_local <= (others => '0'); -- Clear all bits
-                        cnt1_o <= '1';
-                   end if;
- 
+                if ((cnt_i and cnt_i2 and cnt_i3) = '1') then
                 
-                else             
+                    if (s_cnt_local(0) = '0') and (s_cnt_local(1) = '0' ) and (s_cnt_local(2) = '0' ) and (s_cnt_local(3) = '1' ) then
+                        s_cnt_local <= s_cnt_local + 1;
+                        cnt_o <= '1';
+                    elsif (s_cnt_local(0) = '1') and (s_cnt_local(1) = '0' ) and (s_cnt_local(2) = '0' ) and (s_cnt_local(3) = '1' ) then
+                        s_cnt_local <= (others => '0'); -- Clear all bits
+                        cnt_o <= '0';
+                    else
+                        s_cnt_local <= s_cnt_local + 1;
+                        cnt_o <= '0';  
+                    end if;   
+                
+             else             
                     s_cnt_local <= s_cnt_local ;
                 
                 
-                end if;
+                 end if;
             end if;
             
             
@@ -74,5 +81,7 @@ begin
     end process p_cnt_up_down;
 
     -- Output must be retyped from "unsigned" to "std_logic_vector"
-    cnt_o <= std_logic_vector(s_cnt_local);
+    cnt_om <= std_logic_vector(s_cnt_local);
+
 end architecture behavioral;
+

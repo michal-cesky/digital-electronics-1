@@ -25,7 +25,8 @@ entity cnt_up_down is
         reset    : in  std_logic;  -- Synchronous reset
         en_i     : in  std_logic;  -- Enable input
         cnt_up_i : in  std_logic;  -- Direction of the counter
-        cnt_o    : inout std_logic_vector(g_CNT_WIDTH - 1 downto 0)
+        cnt_os   : out std_logic_vector(g_CNT_WIDTH - 1 downto 0);
+        cnt_o    : out std_logic
     );
 end entity cnt_up_down;
 
@@ -36,7 +37,6 @@ architecture behavioral of cnt_up_down is
 
     -- Local counter
     signal s_cnt_local : unsigned(g_CNT_WIDTH - 1 downto 0);
-
 begin
     --------------------------------------------------------
     -- p_cnt_up_down:
@@ -45,6 +45,7 @@ begin
     --------------------------------------------------------
     p_cnt_up_down : process(clk)
     begin
+        
         if rising_edge(clk) then
         
             if (reset = '1') then   -- Synchronous reset
@@ -54,25 +55,31 @@ begin
                   s_cnt_local <= (others => '0');
                 
                 if (cnt_up_i = '1') then
-                s_cnt_local <= s_cnt_local + 1;
-                    if (cnt_o(0) = '0') and (cnt_o(1) = '1' ) and (cnt_o(2) = '1' ) and (cnt_o(3) = '0' ) then
+                    
+                    
+                
+                    if (s_cnt_local(0) = '0') and (s_cnt_local(1) = '0' ) and (s_cnt_local(2) = '0' ) and (s_cnt_local(3) = '1' ) then
+                        s_cnt_local <= s_cnt_local + 1;
+                        cnt_o <= '1';
+                    elsif (s_cnt_local(0) = '1') and (s_cnt_local(1) = '0' ) and (s_cnt_local(2) = '0' ) and (s_cnt_local(3) = '1' ) then
                         s_cnt_local <= (others => '0'); -- Clear all bits
+                        cnt_o <= '0';
                     else
-                        s_cnt_local <= s_cnt_local + 1;  
-                    end if;   
-                
-             else             
+                        s_cnt_local <= s_cnt_local + 1;
+                        cnt_o <= '0';  
+                    end if;      
+                else             
                     s_cnt_local <= s_cnt_local ;
+                end if;
                 
-                
-                 end if;
             end if;
+            
             
             
         end if;
     end process p_cnt_up_down;
 
     -- Output must be retyped from "unsigned" to "std_logic_vector"
-    cnt_o <= std_logic_vector(s_cnt_local);
-
+    cnt_os <= std_logic_vector(s_cnt_local);
+    
 end architecture behavioral;

@@ -34,11 +34,15 @@ architecture testbench of tb_cnt_up_down is
     signal s_en         : std_logic;
     signal s_cnt_up     : std_logic;
     signal s_cnt1       : std_logic;
-    signal s_cnt        : std_logic_vector(c_CNT_WIDTH - 1 downto 0);
-
+    signal s_cnts       : std_logic_vector(c_CNT_WIDTH - 1 downto 0);
+    signal s_cnt2       : std_logic;
+    signal s_cntss      : std_logic_vector(c_CNT_WIDTH - 1 downto 0);
+    signal s_cnt3       : std_logic; 
+    signal s_cntm      : std_logic_vector(c_CNT_WIDTH - 1 downto 0); 
 begin
     -- Connecting testbench signals with cnt_up_down entity
     -- (Unit Under Test)
+    --first cnt_up_down (seconds)
     uut_cnt : entity work.cnt_up_down
         generic map(
             g_CNT_WIDTH  => c_CNT_WIDTH
@@ -48,17 +52,45 @@ begin
             reset    => s_reset,
             en_i     => s_en,
             cnt_up_i => s_cnt_up,
-            cnt_o    => s_cnt,
-            cnt1_o   => s_cnt1
-            
+            cnt_os   => s_cnts,
+            cnt_o   => s_cnt1
         );
 
+    --second cnt_up_down (10 seconds)
+    uut_cnt1 : entity work.cnt_up_down_1
+        generic map(
+            g_CNT_WIDTH  => c_CNT_WIDTH
+        )
+        port map(
+            clk      => s_clk_100MHz,
+            reset    => s_reset,
+            en_i     => s_en,
+            cnt_i    => s_cnt1,
+            cnt_oss  => s_cntss,
+            cnt_o    => s_cnt2
+        );
+    
+    --third cnt_up_down (minutes)
+    uut_cnt2 : entity work.cnt_up_down_2
+        generic map(
+            g_CNT_WIDTH  => c_CNT_WIDTH
+        )
+        port map(
+            clk      => s_clk_100MHz,
+            reset    => s_reset,
+            en_i     => s_en,
+            cnt_i    => s_cnt1,
+            cnt_i2   => s_cnt2,
+            cnt_om   => s_cntm,
+            cnt_o    => s_cnt3
+        );    
+      
     --------------------------------------------------------
     -- Clock generation process
     --------------------------------------------------------
     p_clk_gen : process
     begin
-        while now < 750 ns loop -- 75 periods of 100MHz clock
+        while now < 1000 ns loop -- 75 periods of 100MHz clock
             s_clk_100MHz <= '0';
             wait for c_CLK_100MHZ_PERIOD / 2;
             s_clk_100MHz <= '1';
@@ -74,7 +106,7 @@ begin
     begin
         
         -- Reset activated
-        s_reset <= '1'; wait for 10 ns;
+        s_reset <= '1'; wait for 73 ns;
         -- Reset deactivated
         s_reset <= '0';
         wait;
@@ -92,9 +124,10 @@ begin
         
         -- Change counter direction
         s_cnt_up <= '1';
-        wait for 380 ns;
+        wait for 4000000 ns;
         s_cnt_up <= '0';
         wait for 220 ns;
+        
 
         -- Disable counting
         s_en     <= '0';
@@ -104,3 +137,5 @@ begin
     end process p_stimulus;
 
 end architecture testbench;
+
+
